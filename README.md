@@ -1,26 +1,24 @@
-## LINSYS: Desvende os Mistérios dos Sistemas Lineares com Algoritmos Mágicos
+# LINSYS
 
-## **Seja bem-vindo ao Linsys!** 
+## Introdução
 
-O Linsys é o seu portal definitivo para o mundo da álgebra linear, desde a resolução de sistemas de equações até o domínio de operações matriciais. Se você é um matemático experiente ou está apenas começando, o Linsys tem algo para todos.
+O `LINSYS` é um trabalho em equipe desenvolvido por alunos da disciplina de Métodos Numéricos e Otimização, ministrada pelo professor Guilherme Macedo, no curso de Desenvolvimento de Sistemas no Colégio técnico de Campinas - UNICAMP.
 
-### **O que o Linsys pode fazer por você?**
+### Objetivos
 
-* **Resolva sistemas de equações** com facilidade usando diversos métodos, incluindo eliminação gaussiana, decomposição LU e métodos iterativos.
-* **Manipule matrizes** como um profissional com operações como adição, subtração, multiplicação e inversão.
-* **Compreenda os conceitos** por trás da álgebra linear com explicações claras e exemplos interativos.
-* **Pratique suas habilidades** com problemas e questionários desafiadores.
+O objetivo do trabalho é implementar um sistema de resolução de sistemas lineares utilizando métodos numéricos, como o método de Gauss e o método de Jacobi, e comparar os resultados obtidos com a solução exata do sistema linear.
 
-### **Linsys é a ferramenta perfeita para:**
+## Experimentos computacionas
 
-* **Estudantes** que estão aprendendo álgebra linear pela primeira vez.
-* **Engenheiros** e cientistas que precisam usar álgebra linear em seu trabalho.
-* **Programadores** que desejam adicionar recursos de álgebra linear aos seus aplicativos.
-* **Qualquer um** que queira aprender mais sobre este assunto fascinante.
+### Implementação
 
-### **Comece com o Linsys hoje e desbloqueie o poder da álgebra linear!**
+O sistema foi implementado em Python, utilizando a biblioteca `numpy` para operações matriciais. O código fonte pode ser encontrado no diretório `src/`. Para executar o sistema, basta executar o arquivo `main.py` no diretório `src/`. O sistema irá solicitar ao usuário que insira o sistema linear a ser resolvido, e então irá calcular a solução utilizando os métodos de Gauss e Jacobi. Os resultados obtidos serão exibidos na tela.
 
-**Recursos adicionais:**
+## Métodos
 
-* Visite o site do Linsys para obter mais informações: [https://github.com/polabiel/linsys](https://github.com/polabiel/linsys)
-* Contribua com o desenvolvimento do Linsys: [https://github.com/polabiel/linsys](https://github.com/polabiel/linsys)
+### Método de Gauss
+
+
+## Resultados
+
+## Conclusões
