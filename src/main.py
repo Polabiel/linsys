@@ -1,62 +1,49 @@
+from typing import Any, Literal
+from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
+from numpy import dtype, floating, ndarray
+from scipy.optimize import linprog
+from scipy.optimize._optimize import OptimizeResult
 
-def gauss_solver(A, b) -> np.ndarray[np.Any, np.dtype[np.floating[np._64Bit]]]:
-    n: int = len(A)
+def problem_1():
+    
+    """
+    minimizar: 5x_1 + x_2
+    sujeito a 2x_1 + x_2 ≥ 6
+    x_1 + x_2 ≥ 4
+    x_1 + 5x_2 ≥ 10
+    x_1, x_2 ≥ 0
+    
+    A solução ótima deste problema é x^∗ = (0, 6) com f(x^∗) = 6.
+    """
+        
+    # Coeficientes da função objetivo
+    c: list[int] = [5, 1]
 
-    # Etapa de escalonamento
-    for i in range(n):
-        max_el: int = abs(A[i][i])
-        max_row: int = i
-        for k in range(i+1, n):
-            if abs(A[k][i]) > max_el:
-                max_el = abs(A[k][i])
-                max_row = k
+    # Matriz de coeficientes das desigualdades
+    A: list[list[int]] = [[-2, -1], [-1, -1], [-1, -5]]
 
-        A[[i, max_row]] = A[[max_row, i]]
-        b[i], b[max_row] = b[max_row], b[i]
+    # Vetor de termos independentes das desigualdades
+    b: list[int] = [-6, -4, -10]
 
-        for k in range(i+1, n):
-            factor = A[k][i]/A[i][i]
-            for j in range(i, n):
-                A[k][j] -= factor * A[i][j]
+    # Limites para as variáveis
+    x0_bounds: tuple[Literal[0], None] = (0, None)
+    x1_bounds: tuple[Literal[0], None] = (0, None)
 
-            b[k] -= factor * b[i]
+    res: OptimizeResult = linprog(c, A_ub=A, b_ub=b, bounds=[x0_bounds, x1_bounds], method='highs')
+    
+    print_result(res)
 
-    # Substituição para trás
-    x: np.ndarray[np.Any, np.dtype[np.floating[np._64Bit]]] = np.zeros(n)
-    for i in range(n-1, -1, -1):
-        x[i] = b[i]/A[i][i]
-        for k in range(i-1, -1, -1):
-            b[k] -= A[k][i] * x[i]
+def print_result(res: OptimizeResult) -> None:
+    print("Resultado: ")
+    print(f"x1 = {res.x[0]}")
+    print(f"x2 = {res.x[1]}")
+    print(f"Função objetivo = {res.fun}")
+    print(f"Status = {res.status}")
+    print(f"Mensagem = {res.message}")
+    print(f"Iterações = {res.nit}")
 
-    return x
-
-def jacobian_solver(A, b, x0, tol=1e-6, max_iter=1000) -> np.ndarray[np.Any, np.dtype[np.floating[np._64Bit]]]:
-    n: int = len(A)
-    x: np.ndarray[np.Any, np.dtype[np.floating[np._64Bit]]] = x0
-
-    for _ in range(max_iter):
-        x_new: np.ndarray[np.Any, np.dtype[np.floating[np._64Bit]]] = np.zeros(n)
-        for i in range(n):
-            s: float = 0
-            for j in range(n):
-                if j != i:
-                    s += A[i][j] * x[j]
-            x_new[i] = (b[i] - s) / A[i][i]
-
-        if np.linalg.norm(x_new - x) < tol:
-            return x_new
-
-        x = x_new
-
-    return x
-
-def main() -> None:
-    A: np.ndarray[np.Any, np.dtype[np.floating[np._64Bit]]] = np.array([[10, 2, 1], [1, 5, 1], [2, 3, 10]])
-    b: np.ndarray[np.Any, np.dtype[np.floating[np._64Bit]]] = np.array([7, -8, 6])
-
-    x_gauss: np.ndarray[np.Any, np.dtype[np.floating[np._64Bit]]] = gauss_solver(A, b)
-    x_jac: np.ndarray[np.Any, np.dtype[np.floating[np._64Bit]]] = jacobian_solver(A, b, np.zeros(3))
-
-    print(x_gauss)
-    print(x_jac)
+if __name__ == "__main__":
+    problem_1()
