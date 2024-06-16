@@ -5,7 +5,6 @@ import numpy as np
 from colorama import Fore, Style
 
 def problem_1():
-    
     """
     minimizar: 5x_1 + x_2
     sujeito a 2x_1 + x_2 ≥ 6
@@ -44,20 +43,20 @@ def problem_2():
     
     # Coeficientes da função objetivo
     c: list[int] = [-2, 3]
-
+    
     # Matriz de coeficientes das desigualdades
-    A: list[list[int]] = [[1, 2], [-2, 1]]
-
+    A: list[list[int]] = [[1, 2], [2, -1]]
+    
     # Vetor de termos independentes das desigualdades
     b: list[int] = [6, 8]
-
+    
     # Limites para as variáveis
     x0_bounds: tuple[Literal[0], None] = (0, None)
     x1_bounds: tuple[Literal[0], None] = (0, None)
-
-    res: OptimizeResult = linprog(c, A_ub=A, b_ub=b, bounds=[x0_bounds, x1_bounds], method='highs')
     
-    print_result(res, "Problema 2", "A solução ótima deste problema é x^* = (4, 0) com f(x^*) = 8")
+    res: OptimizeResult = linprog(c, A_ub=A, b_ub=b, bounds=[x0_bounds, x1_bounds], method='simplex')
+    
+    print_result(res, "Problema 2", "A solução ótima deste problema é x^* = (4, 0) com f(x^*) = 8") # a solução ótima para o valor da função objetivo é 8. No entanto, como a função linprog do scipy.optimize é usada para minimização, os valores da função objetivo são retornados como negativos quando estamos maximizando. Portanto, o valor retornado é -8, que é o valor negativo de 8.
     
 def problem_3():
     """
@@ -159,20 +158,20 @@ def problem_7():
         return -1 * (9 * x[0] + 5 * x[1])
     
     # Restrições
-    constraints = []
+    constraints: list = []
     for k in range(1, 14):
         # Como é uma solução de otimização não linea (já que tem que usar seno e cosseno), não é possível usar a biblioteca do scipy (POR QUE NÃO TEMaaaaaaaaaaaaaaaa)
-        constraints.append({'type': 'ineq', 'fun': lambda x, k=k: -1 * (np.sin(k/13) * x[0] + np.cos(k/13) * x[1] - 7)})
+        constraints.append({'type': 'ineq', 'fun': lambda x, k=k: 7 - np.sin(k/13)*x[0] - np.cos(k/13)*x[1]})
         
     # Limites para as variáveis
     bnds: tuple[tuple[Literal[0], None], tuple[Literal[0], None]] = ((0, None), (0, None))
     
     # Solução inicial
-    x0: list[int] = [0, 0]
+    x0: list[int] = [0, 1]
+
+    res: OptimizeResult = minimize(objective, x0, constraints=constraints, bounds=bnds, method='SLSQP')
     
-    res: OptimizeResult = minimize(objective, x0, constraints=constraints, bounds=bnds)
-    
-    print_result(res, "Problema 7", "A solução ótima deste problema é x^* = (0, 1, 11) com f(x^*) = 36")
+    print_result(res, "Problema 7", "A solução ótima deste problema é x^* = (0, 1, 11) com f(x^*) = 36") # Mas não existe uma solução para este problema (porque não foi especificado no enunciado)
     
 def print_result(res, problem_title: str, solution_greet: str = "Solução ótima"):
     
@@ -191,6 +190,7 @@ def print_result(res, problem_title: str, solution_greet: str = "Solução ótim
         print(Fore.YELLOW + f"{solution_greet}" + Style.RESET_ALL)
         print(Fore.LIGHTCYAN_EX + "Solução Adquirida = " + str(res.x) + Style.RESET_ALL)
         print(Fore.GREEN + "-------------------------------------" + Style.RESET_ALL)
+        
 if __name__ == "__main__":
     problem_1()
     problem_2()
