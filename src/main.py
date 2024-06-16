@@ -56,7 +56,7 @@ def problem_2():
     x0_bounds: tuple[Literal[0], None] = (0, None)
     x1_bounds: tuple[Literal[0], None] = (0, None)
     
-    res: OptimizeResult = linprog(c, A_ub=A, b_ub=b, bounds=[x0_bounds, x1_bounds], method='simplex')
+    res: OptimizeResult = linprog(c, A_ub=A, b_ub=b, bounds=[x0_bounds, x1_bounds], method='highs')
     
     print_result(res, "Problema 2", "A solução ótima deste problema é x^* = (4, 0) com f(x^*) = 8") # a solução ótima para o valor da função objetivo é 8. No entanto, como a função linprog do scipy.optimize é usada para minimização, os valores da função objetivo são retornados como negativos quando estamos maximizando. Portanto, o valor retornado é -8, que é o valor negativo de 8.
     
@@ -70,10 +70,10 @@ def problem_3():
     """
     
     # Coeficientes da função objetivo
-    c: list[int] = [-15, -37, 11]
+    c: list[int] = [-15, -41, 11]
 
     # Matriz de coeficientes das desigualdades
-    A: list[list[int]] = [[-2, -1, -1]]
+    A: list[list[int]] = [[-2, 1, 1]]
 
     # Vetor de termos independentes das desigualdades
     b: list[int] = [0]
@@ -94,12 +94,15 @@ def problem_4():
     x_j - 2x_{j+1} ≥ 0 para j = 1, 2, 3
     x_j ≥ 0 para j = 1, 2, 3
     A solução ótima deste problema é x^* = (400, 0, 0, 0) com f(x^*) = 0.
-    """ 
+    """
     
     # Coeficientes da função objetivo
     c: list[int] = [0, 0, 10, 10]
-    
-    A: list[list[int]] = [[-1, 2, 0, 0],[0, -1, 2, 0],[0, 0, -1, 2]]
+
+    # Matriz A representando as desigualdades dos coeficientes
+    A: list[list[int]] = [[-1, 2, 0, 0],
+    [0, -1, 2, 0],
+    [0, 0, -1, 2]]
 
     # Vetor b representando os limites superiores das desigualdades
     b: list[int] = [0, 0, 0]
