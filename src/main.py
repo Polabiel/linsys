@@ -131,13 +131,13 @@ def problem_5():
     """
     
     # Coeficientes da função objetivo
-    c: list[int] = [5, 0, 3]
+    c: list[int] = [4, 0, -3]
 
     # Matriz de coeficientes das desigualdades
-    A: list[list[int]] = [[-1, 1, 0], [0, -1, 1]]
+    A: list[list[int]] = [ [1, 1, 1],[1, -1, 0], [0, 1, -1]]
 
     # Vetor de termos independentes das desigualdades
-    b: list[int] = [-1, -1]
+    b: list[int] = [12, -1, -1]
 
     # Limites para as variáveis
     x0_bounds: tuple[Literal[0], None] = (0, None)
@@ -161,24 +161,30 @@ def problem_7():
     sujeito a sen(k/13)_x_{1} + cos(k/13)x_{2} ≤ 7 para j = 1, 2, ..., 13
     x_{1}, x_{2} ≥ 0
     A solução ótima deste problema é x^* = (0, 1, 11) com f(x^*) = 36
+    
+    Mas a solução ótima não faz sentido para este problema, pois não foi mostrando a 3ª variável x3, e nem foi especificado no enunciado como esse problema deveria ser resolvido de acordo com as restrições apresentadas.
+    
+    Por tanto ficou incompleta e eu apenas finalizei o código com apenas 2 variáveis x1 e x2.
     """
-    # Função objetivo 
-    def objective(x):
-        return -1 * (9 * x[0] + 5 * x[1])
-    
-    # Restrições
-    constraints: list = []
-    for k in range(1, 14):
-        # Como é uma solução de otimização não linea (já que tem que usar seno e cosseno), não é possível usar a biblioteca do scipy (POR QUE NÃO TEMaaaaaaaaaaaaaaaa)
-        constraints.append({'type': 'ineq', 'fun': lambda x, k=k: 7 - np.sin(k/13)*x[0] - np.cos(k/13)*x[1]})
-        
-    # Limites para as variáveis
-    bnds: tuple[tuple[Literal[0], None], tuple[Literal[0], None]] = ((0, None), (0, None))
-    
-    # Solução inicial
-    x0: list[int] = [0, 1]
 
-    res: OptimizeResult = minimize(objective, x0, constraints=constraints, bounds=bnds, method='SLSQP')
+    # Função objetivo (negativos para maximização)
+    c: list[int] = [-9, -5]
+
+    # Restrições
+    A = []
+    b = []
+    for k in range(1, 14):  # k vai de 1 a 13
+        A.append([np.sin(k / 13), np.cos(k / 13)])
+        b.append(7)
+        
+    A = np.array(A)
+    b = np.array(b)
+
+    # Limites para x1 e x2
+    bounds: list[tuple[Literal[0], None]] = [(0, None), (0, None)]
+
+    # Resolução do problema
+    res: OptimizeResult = linprog(c, A_ub=A, b_ub=b, bounds=bounds, method='simplex')
     
     print_result(res, "Problema 7", "A solução ótima deste problema é x^* = (0, 1, 11) com f(x^*) = 36") # Mas não existe uma solução para este problema (porque não foi especificado no enunciado)
     
