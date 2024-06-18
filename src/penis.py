@@ -84,64 +84,27 @@
 
 \section{Algoritmo Simplex}
 
-{O Algoritmo Simplex é uma abordagem iterativa para a resolução de problemas de programação linear. Ele inicia a partir de uma solução viável básica e, em cada iteração, se desloca para uma solução adjacente que melhora o valor da função objetivo, até que uma solução ótima seja alcançada. No contexto de sistemas de equações lineares, o Simplex pode ser empregado para encontrar soluções de problemas formulados como programas lineares. O algoritmo é eficiente e pode ser aplicado a problemas de grande escala.} {
-O algoritmo Simplex é um método para resolver problemas de programação linear. Ele é usado para encontrar o valor máximo ou mínimo de uma função objetivo, sujeito a um conjunto de restrições. No código fornecido, o algoritmo Simplex é usado para resolver vários problemas de otimização.\\O código usa a função linprog da biblioteca scipy.optimize para implementar o algoritmo Simplex. A função linprog recebe os seguintes parâmetros:
-\begin{itemize}
-    \item c: Uma lista de coeficientes da função objetivo.
-    \item A\_ub: Uma matriz de coeficientes para as restrições de desigualdade.
-    \item b\_ub: Um vetor de termos independentes para as restrições de desigualdade.
-    \item bounds: Uma lista de tuplas representando os limites inferiores e superiores para cada variável.
-    \item method: O método a ser usado para resolver o problema de otimização. Neste caso, é usado o método 'highs', que é uma implementação do algoritmo Simplex.
-\end{itemize}
-Cada função \textbf{\textit{problem\_X}} define um problema de otimização específico, configurando os coeficientes da função objetivo, as restrições e os limites das variáveis de acordo com o problema. Em seguida, a função linprog é chamada para resolver o problema.
-
-A função \textbf{\textit{print\_result}} é usada para exibir os resultados da otimização. Ela recebe o resultado da função linprog, o nome do problema e a solução esperada, e imprime a solução encontrada e a solução esperada.
-
-Por exemplo, no \textit{problem\_1}, a função objetivo é \(5x_1 + x_2\) e as restrições são \(2x_1 + x_2 \geq 6\), \(x_1 + x_2 \geq 4\), \(x_1 + 5x_2 \geq 10\) e \(x_1, x_2 \geq 0\). A função linprog é chamada com os coeficientes e restrições correspondentes, e a solução encontrada é impressa.
-
-Por favor, note que a função linprog minimiza a função objetivo. Portanto, quando o problema é maximizar a função objetivo, os coeficientes da função objetivo são negativos.
-}
-
+{O Algoritmo Simplex é uma abordagem iterativa para a resolução de problemas de programação linear. Ele inicia a partir de uma solução viável básica e, em cada iteração, se desloca para uma solução adjacente que melhora o valor da função objetivo, até que uma solução ótima seja alcançada. No contexto de sistemas de equações lineares, o Simplex pode ser empregado para encontrar soluções de problemas formulados como programas lineares.}
 
 \section{Resultados}
 
 {No resultado é possivel visualizar dentro do Github as instances com todas as declarações de erro, Os resultados dos experimentos realizados são apresentados na Tabela \ref{tab:resultados}. Esta tabela mostra o gap, a função objetivo, o valor capturado e a equação realizada para cada instância testada.
 
-A seguir, apresentamos os resultados dos problemas resolvidos utilizando o algoritmo Simplex. Para cada problema, listamos os valores das variáveis \(x\), a função objetivo, o status da otimização, o número de iterações e a solução ótima esperada.
-
 \begin{table}[H]
     \centering
-    \caption{Resultados dos Problemas}
     \begin{tabular}{cccc}
         \toprule
-        \textbf{Problema} & \textbf{Variáveis} & \textbf{Função Objetivo} & \textbf{Iterações} \\
+        \textbf{Gap} & \textbf{Função Objetivo} & \textbf{Valor Capturado} & \textbf{Equação Realizada} \\
         \midrule
-        1 & \( x_1 = 0.0, x_2 = 6.0 \) & 6.0 & 0 \\
-        2 & \( x_1 = 4.0, x_2 = 0.0 \) & -8.0 & 1 \\
-        3 & \( x_1 = 1.0, x_2 = 1.0, x_3 = 0.0 \) & -56.0 & 0 \\
-        4 & \( x_1 = 400.0, x_2 = 0.0, x_3 = 0.0, x_4 = 0.0 \) & 0.0 & 0 \\
-        5 & \( x_1 = 0.0, x_2 = 1.0, x_3 = 11.0 \) & -33.0 & 0 \\
-        6 & Não resolvido & - & - \\
-        7 & \( x_1 = 8.3188, x_2 = 0.0 \) & -74.87 & 2 \\
+        & & & \\
+        & & & \\
+        & & & \\
+        & & & \\
         \bottomrule
     \end{tabular}
+    \caption{Resultados dos experimentos realizados}
     \label{tab:resultados}
 \end{table}
-
-\subsection{Análise dos Resultados}
-
-A tabela acima apresenta uma visão geral dos resultados obtidos para cada problema. A seguir, detalhamos cada problema:
-
-\begin{itemize}
-    \item \textbf{Problema 1:} A solução ótima obtida foi \( x_1 = 0.0 \) e \( x_2 = 6.0 \), com uma função objetivo de 6.0. O status do algoritmo foi 0, indicando uma solução ótima encontrada sem problemas, com 0 iterações.
-    \item \textbf{Problema 2:} A solução ótima obtida foi \( x_1 = 4.0 \) e \( x_2 = 0.0 \), com uma função objetivo de -8.0. O status foi 0, com 1 iteração.
-    \item \textbf{Problema 3:} A solução ótima obtida foi \( x_1 = 1.0 \), \( x_2 = 1.0 \) e \( x_3 = 0.0 \), com uma função objetivo de -56.0. O status foi 0, com 0 iterações.
-    \item \textbf{Problema 4:} A solução ótima obtida foi \( x_1 = 400.0 \), \( x_2 = 0.0 \), \( x_3 = 0.0 \) e \( x_4 = 0.0 \), com uma função objetivo de 0.0. O status foi 0, com 0 iterações.
-    \item \textbf{Problema 5:} A solução ótima obtida foi \( x_1 = 0.0 \), \( x_2 = 1.0 \) e \( x_3 = 11.0 \), com uma função objetivo de -33.0. O status foi 0, com 0 iterações. Houve um gap de 3 unidades na função objetivo esperada.
-    \item \textbf{Problema 6:} Este problema não foi resolvido pois não foi especificado no enunciado.
-    \item \textbf{Problema 7:} A solução ótima obtida foi \( x_1 = 8.3188 \) e \( x_2 = 0.0 \), com uma função objetivo de -74.87. O status foi 0, com 2 iterações.
-\end{itemize}
-
 }
 
 \section{Conclusões}
@@ -149,5 +112,95 @@ A tabela acima apresenta uma visão geral dos resultados obtidos para cada probl
 {O Algoritmo Simplex demonstrou-se eficaz na resolução de sistemas de equações lineares, proporcionando soluções ótimas de forma eficiente. Os resultados obtidos para a instância de teste validam a precisão e a eficiência do método. Para problemas de maior escala, o Simplex continua sendo uma ferramenta poderosa, embora técnicas adicionais possam ser necessárias para melhorar o desempenho computacional.
 
 Em conclusão, o Algoritmo Simplex é uma abordagem robusta para resolver sistemas de equações lineares, sendo amplamente aplicável em diversas áreas que requerem soluções ótimas para problemas lineares.}
+
+\begin{table}[ht]
+    \centering
+    \caption{Resultados dos Problemas de Otimização}
+    \begin{tabular}{p{2cm} p{8cm} p{4cm}}
+        \toprule
+        \textbf{Problema} & \textbf{Resultado} & \textbf{Arquivo Markdown} \\
+        \midrule
+        1 & 
+        \begin{tabular}[t]{@{}l@{}}
+        x1 = 0.0\\
+        x2 = 6.0\\
+        Função objetivo = 6.0\\
+        Status = 0\\
+        
+        A solução ótima deste problema é x$^*$ = (0, 6) com f(x$^*$) = 6\\
+        Solução Adquirida = [0. 6.]
+        \end{tabular} & 
+        D:\textbackslash linsys-1\textbackslash src\textbackslash..\textbackslash instances\textbackslash markdown\_Problema\_1.md \\
+        \midrule
+        2 & 
+        \begin{tabular}[t]{@{}l@{}}
+        x1 = 4.0\\
+        x2 = 0.0\\
+        Função objetivo = -8.0\\
+        Status = 0\\
+        
+        Iterações = 1\\
+        A solução ótima deste problema é x$^*$ = (4, 0) com f(x$^*$) = 8\\
+        Solução Adquirida = [4. 0.]
+        \end{tabular} & 
+        D:\textbackslash linsys-1\textbackslash src\textbackslash..\textbackslash instances\textbackslash markdown\_Problema\_2.md \\
+        \midrule
+        3 & 
+        \begin{tabular}[t]{@{}l@{}}
+        x1 = 1.0\\
+        x2 = 1.0\\
+        Função objetivo = -56.0\\
+        Status = 0\\
+        
+        A solução ótima deste problema é x$^*$ = (1, 1, 0) com f(x$^*$) = 56\\
+        Solução Adquirida = [1. 1. 0.]
+        \end{tabular} & 
+        D:\textbackslash linsys-1\textbackslash src\textbackslash..\textbackslash instances\textbackslash markdown\_Problema\_3.md \\
+        \midrule
+        4 & 
+        \begin{tabular}[t]{@{}l@{}}
+        x1 = 400.0\\
+        x2 = 0.0\\
+        Função objetivo = 0.0\\
+        Status = 0\\
+        
+        A solução ótima deste problema é x$^*$ = (400, 0, 0, 0) com f(x$^*$) = 0\\
+        Solução Adquirida = [400. 0. 0. 0.]
+        \end{tabular} & 
+        D:\textbackslash linsys-1\textbackslash src\textbackslash..\textbackslash instances\textbackslash markdown\_Problema\_4.md \\
+        \midrule
+        5 & 
+        \begin{tabular}[t]{@{}l@{}}
+        x1 = 0.0\\
+        x2 = 1.0\\
+        Função objetivo = -33.0\\
+        Status = 0\\
+        
+        A solução ótima deste problema é x$^*$ = (0, 1, 11) com f(x$^*$) = 36\\
+        Solução Adquirida = [0. 1. 11.]
+        \end{tabular} & 
+        D:\textbackslash linsys-1\textbackslash src\textbackslash..\textbackslash instances\textbackslash markdown\_Problema\_5.md \\
+        \midrule
+        6 & 
+        \begin{tabular}[t]{@{}l@{}}
+        O problema não foi resolvido pois não foi especificado no enunciado.
+        \end{tabular} & 
+        D:\textbackslash linsys-1\textbackslash src\textbackslash..\textbackslash instances\textbackslash markdown\_Problema\_6.md \\
+        \midrule
+        7 & 
+        \begin{tabular}[t]{@{}l@{}}
+        x1 = 8.318765740446844\\
+        x2 = 0.0\\
+        Função objetivo = -74.8688916640216\\
+        Status = 0\\
+        
+        Iterações = 15\\
+        A solução ótima deste problema é x$^*$ = (0, 1, 11) com f(x$^*$) = 36\\
+        Solução Adquirida = [8.31876574 0.]
+        \end{tabular} & 
+        - \\
+        \bottomrule
+    \end{tabular}
+\end{table}
 
 \end{document}

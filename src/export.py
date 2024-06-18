@@ -18,5 +18,3 @@ def generate_markdown(strings: str, title: str) -> list[str]:
     with open(nome_arquivo, "w", encoding='utf-8') as arquivo:
         # Escreve o conteúdo de strings no arquivo
         arquivo.write(strings)
-       
-    print(f"Arquivo Markdown gerado em {nome_arquivo}")

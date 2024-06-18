@@ -184,7 +184,7 @@ def problem_7():
     bounds: list[tuple[Literal[0], None]] = [(0, None), (0, None)]
 
     # Resolução do problema
-    res: OptimizeResult = linprog(c, A_ub=A, b_ub=b, bounds=bounds, method='simplex')
+    res: OptimizeResult = linprog(c, A_ub=A, b_ub=b, bounds=bounds, method='highs')
     
     print_result(res, "Problema 7", "A solução ótima deste problema é x^* = (0, 1, 11) com f(x^*) = 36") # Mas não existe uma solução para este problema (porque não foi especificado no enunciado)
     
@@ -208,8 +208,6 @@ def print_result(res, problem_title: str, solution_greet: str = "Solução ótim
         print(Fore.YELLOW + f"Função objetivo = {res.fun}" + Style.RESET_ALL)
         result_str += f"### Função objetivo = `{res.fun}`\n"
         print(Fore.CYAN + f"Status = {res.status}" + Style.RESET_ALL)
-        print(Fore.MAGENTA + f"Mensagem = {res.message}" + Style.RESET_ALL)
-        result_str += f"Mensagem = {res.message}\n"
         print(Fore.RED + f"Iterações = {res.nit}" + Style.RESET_ALL)
         result_str += f"Iterações = {res.nit}\n"
         print(Fore.YELLOW + f"{solution_greet}" + Style.RESET_ALL)
